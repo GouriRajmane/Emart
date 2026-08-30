@@ -1,0 +1,183 @@
+﻿@model IEnumerable<EMart.Models.Brands>
+
+@{
+    ViewData["Title"] = "Brand List";
+}
+
+<div class="container-fluid mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div>
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-diagram-3-fill text-primary"></i>
+                Brands Management
+            </h3>
+
+            <small class="text-muted">
+                Dashboard / Masters / Brands
+            </small>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Add New Brands
+        </a>
+
+    </div>
+
+
+    <!-- Brand List Card -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                <i class="bi bi-list-ul"></i>
+                Brands List
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- Success Message -->
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+
+                    @TempData["Success"]
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+            }
+
+
+            <!-- Brand Table -->
+            <table class="table table-bordered table-hover table-striped align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <!-- Brand ID -->
+                        <th style="width:80px;">
+                            Brand ID
+                        </th>
+
+                        <!-- Brand Name -->
+                        <th>
+                            Brand Name
+                        </th>
+
+                        <!-- Logo -->
+                        <th class="text-center" style="width:120px;">
+                            Logo
+                        </th>
+
+                        <!-- Action -->
+                        <th class="text-center" style="width:220px;">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <!-- Brand ID -->
+                                <td>
+                                    @item.BrandId
+                                </td>
+
+
+                                <!-- Brand Name -->
+                                <td>
+                                    @item.BrandName
+                                </td>
+
+
+                                <!-- Logo -->
+                                <td class="text-center">
+
+                                    @if (!string.IsNullOrEmpty(item.LogoPath))
+                                    {
+                                        <img src="@item.LogoPath"
+                                             alt="@item.BrandName"
+                                             style="width:70px;
+                                        height:50px;
+                                        object-fit:contain;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            No Logo
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- Action -->
+                                <td class="text-center">
+
+                                    <a asp-action="Edit"
+                                           asp-route-id="@item.BrandId"
+                                           class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Details"
+                                           asp-route-id="@item.BrandId"
+                                           class="btn btn-info btn-sm text-white">
+                                        Details
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                           asp-route-id="@item.BrandId"
+                                           class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="4"
+                                class="text-center text-danger">
+
+                                No brands found.
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

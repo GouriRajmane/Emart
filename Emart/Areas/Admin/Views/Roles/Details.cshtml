@@ -1,0 +1,56 @@
+﻿@model EMart.Models.Roles
+
+@{
+    ViewData["Title"] = "Role Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0">Role Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.RoleId)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.RoleId)
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.RoleName)
+                </dd>
+
+            </dl>
+
+        </div>
+
+        <div class="card-footer">
+
+            <a asp-action="Edit"
+                   asp-route-id="@Model.RoleId"
+                   class="btn btn-warning">
+                Edit
+            </a>
+
+            <a asp-action="Index"
+                   class="btn btn-secondary">
+                Back to List
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

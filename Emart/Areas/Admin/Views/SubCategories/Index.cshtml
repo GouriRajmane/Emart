@@ -1,0 +1,240 @@
+﻿@model EMart.ViewModels.PagedResult<EMart.Models.SubCategories>
+
+@{
+    ViewData["Title"] = "Sub Categories";
+}
+
+<div class="container-fluid mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-diagram-3-fill text-primary"></i>
+                Sub Categories
+            </h3>
+            <small class="text-muted">
+                Dashboard / Masters / Sub Categories
+            </small>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Add New Sub Category
+        </a>
+    </div>
+
+    <!-- Success Message -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    <!-- Card -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+            <h5 class="mb-0">
+                <i class="bi bi-list-ul"></i>
+                Sub Category List
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <form method="get">
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4">
+
+                            <input type="text"
+                                   name="searchText"
+                                   value="@Model.SearchText"
+                                   class="form-control"
+                                   placeholder="Search..." />
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <button class="btn btn-primary">
+
+                                <i class="bi bi-search"></i>
+
+                                Search
+
+                            </button>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <a asp-action="Index"
+                               class="btn btn-secondary">
+
+                                Reset
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </form>
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th style="width:70px;">#</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th style="width:180px;">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Items.Any())
+                        {
+                            int sr = 1;
+
+                            foreach (var item in Model.Items)
+                            {
+                                <tr>
+
+                                    <td class="text-center">
+                                        @sr
+                                    </td>
+
+                                    <td>
+                                        @item.CategoryName
+                                    </td>
+
+                                    <td>
+                                        @item.SubCategoryName
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.SubCategoryId"
+                                           class="btn btn-warning btn-sm">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.SubCategoryId"
+                                           class="btn btn-info btn-sm text-white">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.SubCategoryId"
+                                           class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                sr++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="4" class="text-center text-danger fw-bold">
+
+                                    No Record Found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+                <nav>
+
+                    <ul class="pagination justify-content-end">
+
+                        @if (Model.PageNumber > 1)
+                        {
+                            <li class="page-item">
+
+                                <a class="page-link"
+                                   asp-route-pageNumber="@(Model.PageNumber - 1)"
+                                   asp-route-searchText="@Model.SearchText">
+
+                                    Previous
+
+                                </a>
+
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+
+                                <a class="page-link"
+                                   asp-route-pageNumber="@i"
+                                   asp-route-searchText="@Model.SearchText">
+
+                                    @i
+
+                                </a>
+
+                            </li>
+                        }
+
+                        @if (Model.PageNumber < Model.TotalPages)
+                        {
+                            <li class="page-item">
+
+                                <a class="page-link"
+                                   asp-route-pageNumber="@(Model.PageNumber + 1)"
+                                   asp-route-searchText="@Model.SearchText">
+
+                                    Next
+
+                                </a>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="text-muted">
+
+    Showing
+
+    <b>@Model.Items.Count()</b>
+
+    of
+
+    <b>@Model.TotalRecords</b>
+
+    records.
+
+</div>

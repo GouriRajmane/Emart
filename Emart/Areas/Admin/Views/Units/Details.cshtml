@@ -1,0 +1,187 @@
+﻿@model EMart.Models.Units
+
+@{
+    ViewData["Title"] = "Unit Details";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-info text-white">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h3 class="mb-0">
+                            <i class="bi bi-eye-fill"></i> Unit Details
+                        </h3>
+
+                        <a asp-action="Index" class="btn btn-light btn-sm">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Unit ID
+                        </div>
+
+                        <div class="col-md-8">
+                            @Model.UnitId
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Unit Name
+                        </div>
+
+                        <div class="col-md-8">
+                            @Model.UnitName
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Short Name
+                        </div>
+
+                        <div class="col-md-8">
+                            @Model.UnitShortName
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Status
+                        </div>
+
+                        <div class="col-md-8">
+
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success fs-6">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger fs-6">
+                                    Inactive
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Created On
+                        </div>
+
+                        <div class="col-md-8">
+                            @(Model.CreatedOn?.ToString("dd-MMM-yyyy hh:mm tt") ?? "-")
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Updated On
+                        </div>
+
+                        <div class="col-md-8">
+                            @(Model.UpdatedOn?.ToString("dd-MMM-yyyy hh:mm tt") ?? "-")
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4 fw-bold">
+                            Created By
+                        </div>
+
+                        <div class="col-md-8">
+                            @(Model.CreatedBy ?? 0)
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+
+                        <div class="col-md-4 fw-bold">
+                            Updated By
+                        </div>
+
+                        <div class="col-md-8">
+                            @(Model.UpdatedBy ?? 0)
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-end">
+
+                    <a asp-action="Edit"
+                           asp-route-id="@Model.UnitId"
+                           class="btn btn-warning">
+
+                        <i class="bi bi-pencil-square"></i>
+
+                        Edit
+
+                    </a>
+
+                    <a asp-action="Index"
+                           class="btn btn-secondary">
+
+                        <i class="bi bi-arrow-left-circle"></i>
+
+                        Back to List
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

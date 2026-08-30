@@ -1,0 +1,127 @@
+﻿@model IEnumerable<EMart.Models.Roles>
+
+@{
+    ViewData["Title"] = "Role List";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-diagram-3-fill text-primary"></i>
+                Rles Management
+            </h3>
+            <small class="text-muted">
+                Dashboard / Masters / Rles
+            </small>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Add New Roles
+        </a>
+    </div>
+    <div class="card shadow-lg border-0">
+        @* <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Role List</h3>
+
+                <a asp-action="Create" class="btn btn-light">
+                    <i class="bi bi-plus-circle"></i> Add New Role
+                </a>
+            </div>
+        </div> *@
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                <i class="bi bi-list-ul"></i>
+                Roles List
+            </h5>
+
+        </div>
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <table class="table table-bordered table-hover table-striped align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width:80px;">
+                            @Html.DisplayNameFor(model => model.RoleId)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoleName)
+                        </th>
+
+                        <th class="text-center" style="width:220px;">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.RoleId
+                                </td>
+
+                                <td>
+                                    @item.RoleName
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a asp-action="Edit"
+                                           asp-route-id="@item.RoleId"
+                                           class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Details"
+                                           asp-route-id="@item.RoleId"
+                                           class="btn btn-info btn-sm text-white">
+                                        Details
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                           asp-route-id="@item.RoleId"
+                                           class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-danger">
+                                No roles found.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,96 @@
+﻿@model EMart.Models.Brands
+
+@{
+    ViewData["Title"] = "Edit Brand";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning">
+            <h3 class="mb-0">Edit Brand</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <input type="hidden" asp-for="BrandId" />
+
+                <div class="mb-3">
+                    <label asp-for="BrandName" class="form-label"></label>
+
+                    <input asp-for="BrandName"
+                           class="form-control"
+                           placeholder="Enter Brand Name" />
+
+                    <span asp-validation-for="BrandName"
+                          class="text-danger"></span>
+                </div>
+
+                <!-- Existing Logo -->
+                <div class="mb-3">
+                    <label class="form-label">Current Brand Logo</label>
+
+                    @if (!string.IsNullOrEmpty(Model.LogoPath))
+                    {
+                        <div class="mb-2">
+                            <img src="@Model.LogoPath"
+                                 alt="@Model.BrandName"
+                                 style="width:100px;
+                            height:70px;
+                            object-fit:contain;
+                            border:1px solid #ddd;
+                            padding:5px;" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted mb-2">
+                            No Logo
+                        </div>
+                    }
+                </div>
+
+                <!-- Upload New Logo -->
+                <div class="mb-3">
+                    <label class="form-label">Change Brand Logo</label>
+
+                    <input type="file"
+                           name="LogoFile"
+                           class="form-control"
+                           accept="image/*" />
+                </div>
+
+                <div class="mt-4">
+
+                    <button type="submit" class="btn btn-warning">
+                        Update
+                    </button>
+
+                    <a asp-action="Index"
+                           class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

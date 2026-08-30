@@ -1,0 +1,137 @@
+﻿@model EMart.Models.Units
+
+@{
+    ViewData["Title"] = "Create Unit";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h3 class="mb-0">
+                            <i class="bi bi-plus-circle"></i> Add New Unit
+                        </h3>
+
+                        <a asp-action="Index" class="btn btn-light btn-sm">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <form asp-action="Create" method="post">
+
+                    <div class="card-body">
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="alert alert-danger">
+                        </div>
+
+                        <div class="row">
+
+                            <!-- Unit Name -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="UnitName"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="UnitName"
+                                       class="form-control"
+                                       placeholder="Enter Unit Name" />
+
+                                <span asp-validation-for="UnitName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Short Name -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="UnitShortName"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="UnitShortName"
+                                       class="form-control"
+                                       placeholder="Ex. Kg, Pc, Box" />
+
+                                <span asp-validation-for="UnitShortName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-check form-switch mt-2">
+
+                                    <input asp-for="IsActive"
+                                           class="form-check-input" />
+
+                                    <label asp-for="IsActive"
+                                           class="form-check-label">
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer text-end">
+
+                        <button type="submit"
+                                class="btn btn-success">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Save
+
+                        </button>
+
+                        <a asp-action="Index"
+                               class="btn btn-secondary">
+
+                            <i class="bi bi-x-circle"></i>
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

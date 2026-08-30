@@ -1,0 +1,280 @@
+﻿@model EMart.ViewModels.PagedResult<EMart.Models.Products>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+                    <h4 class="mb-0">
+                        <i class="bi bi-box-seam"></i>
+                        Product Management
+                    </h4>
+                </div>
+
+                <div class="col-md-6 text-end">
+
+                    <a asp-action="Create"
+                           class="btn btn-light">
+
+                        <i class="bi bi-plus-circle"></i>
+                        Add Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- Search -->
+
+            <form method="get">
+
+                <div class="row mb-3">
+
+                    <div class="col-md-4">
+
+                        <input type="text"
+                               name="searchText"
+                               value="@ViewBag.SearchText"
+                               class="form-control"
+                               placeholder="Search Product Name / SKU" />
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <button class="btn btn-primary">
+
+                            <i class="bi bi-search"></i>
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
+                </div>
+            }
+
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th width="80">Image</th>
+
+                            <th>SKU</th>
+
+                            <th>Product</th>
+
+                            <th>Category</th>
+
+                            <th>Sub Category</th>
+
+                            <th>Brand</th>
+
+                            <th>Unit</th>
+
+                            <th class="text-end">Price</th>
+
+                            <th class="text-center">Qty</th>
+
+                            <th class="text-center">Status</th>
+
+                            <th width="180" class="text-center">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Items.Any())
+                        {
+                            foreach (var item in Model.Items)
+                            {
+                                <tr>
+
+                                    <td class="text-center">
+
+                                        @if (!string.IsNullOrEmpty(item.ThumbnailImage))
+                                        {
+                                            <img src="@item.ThumbnailImage"
+                                                 width="60"
+                                                 height="60"
+                                                 class="rounded border"
+                                                 style="object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/no-image.png"
+                                                 width="60"
+                                                 height="60"
+                                                 class="rounded border" />
+                                        }
+
+                                    </td>
+
+                                    <td>
+                                        @item.SKU
+                                    </td>
+
+                                    <td>
+                                        @item.ProductName
+                                    </td>
+
+                                    <td>
+                                        @item.CategoryName
+                                    </td>
+
+                                    <td>
+                                        @item.SubCategoryName
+                                    </td>
+
+                                    <td>
+                                        @item.BrandName
+                                    </td>
+
+                                    <td>
+                                        @item.UnitName
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        ₹ @item.Price?.ToString("N2")
+
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        @item.Quantity
+
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">
+                                                Inactive
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <a asp-action="Edit"
+                                               asp-route-id="@item.ProductId"
+                                               class="btn btn-sm btn-warning">
+
+                                            <i class="bi bi-pencil-square"></i>
+
+                                        </a>
+
+                                        <a asp-action="Details"
+                                               asp-route-id="@item.ProductId"
+                                               class="btn btn-sm btn-info text-white">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                               asp-route-id="@item.ProductId"
+                                               class="btn btn-sm btn-danger">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="11" class="text-center text-danger">
+
+                                    No Products Found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Pagination -->
+            @if (Model.TotalPages > 1)
+            {
+                <nav>
+
+                    <ul class="pagination justify-content-end">
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+
+                                <a class="page-link"
+                                       asp-action="Index"
+                                       asp-route-pageNumber="@i"
+                                       asp-route-pageSize="@Model.PageSize"
+                                       asp-route-searchText="@ViewBag.SearchText">
+
+                                    @i
+
+                                </a>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                </nav>
+            }
+
+        </div>
+
+    </div>
+
+</div>

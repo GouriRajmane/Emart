@@ -1,0 +1,195 @@
+﻿@model IEnumerable<EMart.ViewModels.UserVM>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-diagram-3-fill text-primary"></i>
+                User Management
+            </h3>
+            <small class="text-muted">
+                Dashboard / Masters / User
+            </small>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Add New User
+        </a>
+    </div>
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-white">
+
+            <h5 class="mb-0">
+                <i class="bi bi-list-ul"></i>
+                User List
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    @TempData["Success"]
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"></button>
+
+                </div>
+            }
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle" id="tblUsers">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th style="width:70px;">#</th>
+
+                            <th>Full Name</th>
+
+                            <th>Email</th>
+
+                            <th>Role</th>
+
+                            <th class="text-center">Status</th>
+
+                            <th>Created On</th>
+
+                            <th class="text-center" style="width:220px;">Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            int sr = 1;
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@sr</td>
+
+                                <td>
+                                    <strong>@item.FullName</strong>
+                                </td>
+
+                                <td>@item.Email</td>
+
+                                <td>
+
+                                    <span class="badge bg-info text-dark">
+
+                                        @item.RoleName
+
+                                    </span>
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success">
+
+                                            Active
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+
+                                            Inactive
+
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    @(item.CreatedOn?.ToString("dd-MMM-yyyy"))
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a asp-action="Details"
+                                           asp-route-id="@item.UserId"
+                                           class="btn btn-info btn-sm text-white">
+
+                                        <i class="bi bi-eye-fill"></i>
+
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                           asp-route-id="@item.UserId"
+                                           class="btn btn-warning btn-sm">
+
+                                        <i class="bi bi-pencil-square"></i>
+
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                           asp-route-id="@item.UserId"
+                                           class="btn btn-danger btn-sm">
+
+                                        <i class="bi bi-trash-fill"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            sr++;
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $('#tblUsers').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [10, 25, 50, 100],
+                ordering: true,
+                searching: true,
+                language: {
+                    search: "INPUT",
+                    searchPlaceholder: "Search users..."
+                }
+            });
+        });
+    </script>
+}

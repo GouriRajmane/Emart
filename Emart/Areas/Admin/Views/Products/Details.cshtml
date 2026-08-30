@@ -1,0 +1,279 @@
+﻿@model EMart.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-info text-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h3 class="mb-0">
+
+                    <i class="bi bi-eye"></i>
+
+                    Product Details
+
+                </h3>
+
+                <a asp-action="Index"
+                       class="btn btn-light">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- Product Information -->
+
+                <div class="col-lg-8">
+
+                    <table class="table table-bordered">
+
+                        <tbody>
+
+                            <tr>
+
+                                <th width="220">SKU</th>
+
+                                <td>@Model.Product.SKU</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Product Name</th>
+
+                                <td>@Model.Product.ProductName</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Category</th>
+
+                                <td>@Model.Product.CategoryName</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Sub Category</th>
+
+                                <td>@Model.Product.SubCategoryName</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Brand</th>
+
+                                <td>@Model.Product.BrandName</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Unit</th>
+
+                                <td>@Model.Product.UnitName</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Price</th>
+
+                                <td>
+
+                                    ₹ @Model.Product.Price?.ToString("N2")
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Quantity</th>
+
+                                <td>
+
+                                    @Model.Product.Quantity
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Status</th>
+
+                                <td>
+
+                                    @if (Model.Product.IsActive)
+                                    {
+                                        <span class="badge bg-success">
+
+                                            Active
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+
+                                            Inactive
+
+                                        </span>
+                                    }
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Description</th>
+
+                                <td>
+
+                                    @Model.Product.Description
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Created On</th>
+
+                                <td>
+
+                                    @(Model.Product.CreatedOn?.ToString("dd-MMM-yyyy hh:mm tt"))
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Updated On</th>
+
+                                <td>
+
+                                    @(Model.Product.UpdatedOn?.ToString("dd-MMM-yyyy hh:mm tt"))
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <!-- Thumbnail -->
+
+                <div class="col-lg-4 text-center">
+
+                    @if (Model.ProductImages != null && Model.ProductImages.Any())
+                    {
+                        <img src="@Model.ProductImages.First().ImagePath"
+                             class="img-fluid rounded shadow"
+                             style="max-height:350px;object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <img src="~/images/no-image.png"
+                             class="img-fluid rounded shadow"
+                             style="max-height:350px;" />
+                    }
+
+                </div>
+
+            </div>
+
+            <hr />
+
+            <h4 class="mb-3">
+
+                <i class="bi bi-images"></i>
+
+                Product Images
+
+            </h4>
+
+            <div class="row">
+
+                @if (Model.ProductImages != null && Model.ProductImages.Any())
+                {
+                    foreach (var image in Model.ProductImages)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                            <div class="card shadow-sm">
+
+                                <img src="@image.ImagePath"
+                                     class="card-img-top"
+                                     style="height:220px;object-fit:cover;" />
+
+                            </div>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+
+                        <div class="alert alert-warning">
+
+                            No Images Available.
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        <div class="card-footer text-end">
+
+            <a asp-action="Edit"
+                   asp-route-id="@Model.Product.ProductId"
+                   class="btn btn-warning">
+
+                <i class="bi bi-pencil-square"></i>
+
+                Edit
+
+            </a>
+
+            <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                Close
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

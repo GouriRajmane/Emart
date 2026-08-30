@@ -1,0 +1,424 @@
+﻿@model EMart.ViewModels.OrderVM
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between
+        align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Order Details
+            </h2>
+
+            <p class="text-muted mb-0">
+                Order #@Model.Order.OrderNumber
+            </p>
+
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="Order"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Orders
+
+        </a>
+
+    </div>
+
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+
+    <div class="row g-4">
+
+        <!-- ORDER INFORMATION -->
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        <i class="bi bi-receipt me-2"></i>
+                        Order Information
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Order Number
+                            </small>
+
+                            <div class="fw-semibold">
+                                @Model.Order.OrderNumber
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Order Date
+                            </small>
+
+                            <div class="fw-semibold">
+                                @(Model.Order.OrderDate.ToString("dd-MM-yyyy HH:mm:ss"))
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Customer ID
+                            </small>
+
+                            <div class="fw-semibold">
+                                @Model.Order.CustomerId
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Payment Method
+                            </small>
+
+                            <div class="fw-semibold">
+                                @Model.Order.PaymentMethod
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTS -->
+
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        <i class="bi bi-cart me-2"></i>
+                        Order Items
+                    </h5>
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    <div class="table-responsive">
+
+                        <table class="table
+                            align-middle
+                            mb-0">
+
+                            <thead class="table-light">
+
+                                <tr>
+
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (
+                                                                var item
+                                                                in Model.OrderDetails)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @item.ProductName
+                                        </td>
+
+                                        <td>
+                                            ₹@(item.UnitPrice.ToString("N2"))
+                                        </td>
+
+                                        <td>
+                                            @item.Quantity
+                                        </td>
+
+                                        <td>
+                                            <strong>
+                                                ₹@(item.Total.ToString("N2"))
+                                            </strong>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="col-lg-4">
+
+            <!-- STATUS -->
+
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        Order Status
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-area="Admin"
+                          asp-controller="Order"
+                          asp-action="UpdateStatus"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="orderId"
+                               value="@Model.Order.OrderId" />
+
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select name="orderStatus"
+                                class="form-select mb-3">
+
+                            <option value="Pending"
+                                    selected="@(Model.Order.OrderStatus == "Pending")">
+                                Pending
+                            </option>
+
+                            <option value="Confirmed"
+                                    selected="@(Model.Order.OrderStatus == "Confirmed")">
+                                Confirmed
+                            </option>
+
+                            <option value="Processing"
+                                    selected="@(Model.Order.OrderStatus == "Processing")">
+                                Processing
+                            </option>
+
+                            <option value="Shipped"
+                                    selected="@(Model.Order.OrderStatus == "Shipped")">
+                                Shipped
+                            </option>
+
+                            <option value="Delivered"
+                                    selected="@(Model.Order.OrderStatus == "Delivered")">
+                                Delivered
+                            </option>
+
+                            <option value="Cancelled"
+                                    selected="@(Model.Order.OrderStatus == "Cancelled")">
+                                Cancelled
+                            </option>
+
+                        </select>
+
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+
+                            <i class="bi
+                            bi-check-circle
+                            me-1"></i>
+
+                            Update Status
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="card border-0 shadow-sm mb-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        <i class="bi
+                        bi-geo-alt
+                        me-2"></i>
+
+                        Delivery Address
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    @if (Model.Address != null)
+                    {
+                        <p class="mb-1">
+                            @Model.Address.AddressLine1
+                        </p>
+
+                        <p class="mb-1">
+                            @Model.Address.City
+                        </p>
+
+                        <p class="mb-1">
+                            @Model.Address.State
+                        </p>
+
+                        <p class="mb-0">
+                            <strong>
+                                @Model.Address.Pincode
+                            </strong>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">
+                            Address not available.
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+                        Order Summary
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="d-flex
+                        justify-content-between
+                        mb-2">
+
+                        <span>Subtotal</span>
+
+                        <strong>
+                            ₹@(Model.Order.SubTotal.ToString("N2"))
+                        </strong>
+
+                    </div>
+
+
+                    <div class="d-flex
+                        justify-content-between
+                        mb-2">
+
+                        <span>Shipping</span>
+
+                        <strong>
+                            ₹@(Model.Order.ShippingAmount.ToString("N2"))
+                        </strong>
+
+                    </div>
+
+
+                    <div class="d-flex
+                        justify-content-between
+                        mb-2">
+
+                        <span>Discount</span>
+
+                        <strong>
+                            - ₹@(Model.Order.DiscountAmount.ToString("N2"))
+                        </strong>
+
+                    </div>
+
+
+                    <hr />
+
+
+                    <div class="d-flex
+                        justify-content-between">
+
+                        <span class="fw-bold">
+                            Grand Total
+                        </span>
+
+                        <strong class="fs-5">
+                            ₹@(Model.Order.GrandTotal.ToString("N2"))
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

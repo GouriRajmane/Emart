@@ -1,0 +1,128 @@
+﻿@model EMart.ViewModels.UserVM
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="bi bi-person-plus-fill"></i> Create User
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create" method="post">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                }
+
+                <div class="row">
+
+                    <!-- Full Name -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+                            <label asp-for="FullName"></label>
+                        </div>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input asp-for="Email" class="form-control" placeholder="Email Address" />
+                            <label asp-for="Email"></label>
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                            <label>Password</label>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    @if (Model.GetType().GetProperty("ConfirmPassword") != null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
+                                <label>Confirm Password</label>
+                            </div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    }
+
+                    <!-- Role -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+
+                            <select asp-for="RoleId"
+                                    asp-items="Model.Roles"
+                                    class="form-select">
+                                <option value="">-- Select Role --</option>
+                            </select>
+
+                            <label asp-for="RoleId"></label>
+
+                        </div>
+
+                        <span asp-validation-for="RoleId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Active -->
+                    <div class="col-md-6 mb-3 d-flex align-items-center">
+
+                        <div class="form-check mt-3">
+
+                            <input asp-for="IsActive" class="form-check-input" />
+
+                            <label asp-for="IsActive" class="form-check-label">
+                                Active User
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-between">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Back to List
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle-fill"></i> Save User
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

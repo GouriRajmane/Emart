@@ -1,0 +1,159 @@
+﻿@model EMart.ViewModels.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>EMart Admin Login</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+</head>
+
+
+<body class="bg-light">
+
+
+    <div class="container">
+
+
+        <div class="row justify-content-center
+            align-items-center min-vh-100">
+
+
+            <div class="col-md-5 col-lg-4">
+
+
+                <div class="card shadow">
+
+
+                    <div class="card-body p-4">
+
+
+                        <h2 class="text-center mb-2">
+
+                            EMart
+
+                        </h2>
+
+
+                        <p class="text-center text-muted mb-4">
+
+                            Admin Login
+
+                        </p>
+
+
+                        <form asp-area="Admin"
+                              asp-controller="Account"
+                              asp-action="Login"
+                              method="post">
+
+
+                            <div asp-validation-summary="ModelOnly"
+                                 class="text-danger mb-3">
+                            </div>
+
+
+                            <div class="mb-3">
+
+
+                                <label asp-for="Email"
+                                       class="form-label">
+                                </label>
+
+
+                                <input asp-for="Email"
+                                       class="form-control"
+                                       placeholder="Enter Email" />
+
+
+                                <span asp-validation-for="Email"
+                                      class="text-danger">
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+
+                                <label asp-for="Password"
+                                       class="form-label">
+                                </label>
+
+
+                                <input asp-for="Password"
+                                       class="form-control"
+                                       placeholder="Enter Password" />
+
+
+                                <span asp-validation-for="Password"
+                                      class="text-danger">
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="d-grid">
+
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    Login
+
+                                </button>
+
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js">
+    </script>
+
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js">
+    </script>
+
+
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+    </script>
+
+
+</body>
+
+</html>
