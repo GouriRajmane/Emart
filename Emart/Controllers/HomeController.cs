@@ -1,22 +1,77 @@
-using System.Diagnostics;
-using Emart.Models;
+using EMart.Models;
+using EMart.Repositories.Interfaces;
+using EMart.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
-namespace Emart.Controllers
+namespace EMart.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ICategoriesRepository _categoriesRepository;
+        private readonly IBrandsRepository _brandsRepository;
+        private readonly IProductsRepository _productsRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ICategoriesRepository categoriesRepository,
+            IBrandsRepository brandsRepository,
+            IProductsRepository productsRepository)
         {
-            _logger = logger;
+            _categoriesRepository = categoriesRepository;
+            _brandsRepository = brandsRepository;
+            _productsRepository = productsRepository;
         }
 
-        public IActionResult Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    HomeVM model = new HomeVM();
+
+        //    model.Categories = _categoriesRepository.GetAll();
+
+        //    model.Brands = _brandsRepository.GetAll();
+
+        //    model.LatestProducts = await _productsRepository.GetLatestProducts(8);
+
+        //    model.FeaturedProducts = await _productsRepository.GetFeaturedProducts(8);
+        //    model.AllProducts = await _productsRepository.GetAll("", 1, 40);
+
+        //    return View(model);
+        //}
+
+
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View();
+            HomeVM model = new HomeVM();
+
+            model.Categories = _categoriesRepository.GetAll();
+
+            model.Brands = _brandsRepository.GetAll();
+
+            model.LatestProducts =
+                await _productsRepository.GetLatestProducts(8);
+
+            model.FeaturedProducts =
+                await _productsRepository.GetFeaturedProducts(8);
+
+            model.AllProducts =
+                await _productsRepository.GetAll("", page, 2);
+
+            return View(model);
         }
+
+
+
+
+
+
+
+
+
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {
