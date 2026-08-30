@@ -1,0 +1,605 @@
+﻿@model EMart.ViewModels.CheckoutVM
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="mb-4">
+
+        <h2 class="fw-bold mb-1">
+            <i class="bi bi-credit-card text-primary me-2"></i>
+            Checkout
+        </h2>
+
+        <p class="text-muted mb-0">
+            Review your order and complete your purchase
+        </p>
+
+    </div>
+
+
+    <form asp-controller="Checkout"
+          asp-action="PlaceOrder"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="row g-4">
+
+            <!-- =========================================
+                 LEFT
+                 ========================================= -->
+
+            <div class="col-lg-8">
+
+
+                <!-- =====================================
+                     DELIVERY ADDRESS
+                     ===================================== -->
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-header bg-white border-0 p-4">
+
+                        <div class="d-flex justify-content-between
+                            align-items-center">
+
+                            <div>
+
+                                <h5 class="fw-bold mb-1">
+
+                                    <i class="bi bi-geo-alt
+                                    text-primary me-2"></i>
+
+                                    Delivery Address
+
+                                </h5>
+
+                                <small class="text-muted">
+                                    Select where you want your order delivered
+                                </small>
+
+                            </div>
+
+
+                            <a asp-controller="Address"
+                                   asp-action="Create"
+                                   class="btn btn-outline-primary btn-sm">
+
+                                <i class="bi bi-plus-lg me-1"></i>
+
+                                Add New Address
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body p-4">
+
+
+                        @if (Model.Addresses != null &&
+                             Model.Addresses.Any())
+                        {
+
+                            <div class="row g-3">
+
+                                @foreach (var address in Model.Addresses)
+                                {
+
+                                    <div class="col-md-6">
+
+                                        <label class="w-100">
+
+                                            <input type="radio"
+                                                   asp-for="SelectedAddressId"
+                                                   value="@address.AddressId"
+                                                   class="btn-check"
+                                                   autocomplete="off" />
+
+                                            <div class="address-card
+                                                border
+                                                rounded-4
+                                                p-3
+                                                h-100">
+
+                                                <div class="d-flex
+                                                    align-items-start">
+
+                                                    <div class="me-3">
+
+                                                        <div class="address-icon
+                                                            rounded-circle
+                                                            bg-primary
+                                                            bg-opacity-10
+                                                            text-primary
+                                                            d-flex
+                                                            align-items-center
+                                                            justify-content-center">
+
+                                                            <i class="bi bi-house-door"></i>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="flex-grow-1">
+
+                                                        <div class="fw-bold mb-2">
+
+                                                            Delivery Address
+
+                                                        </div>
+
+
+                                                        <div class="small text-muted">
+
+                                                            @address.AddressLine1
+
+                                                        </div>
+
+                                                        <div class="small text-muted">
+
+                                                            @address.City,
+                                                            @address.State
+
+                                                        </div>
+
+                                                        <div class="small text-muted">
+
+                                                            Pincode:
+                                                            @address.Pincode
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </label>
+
+                                    </div>
+
+                                }
+
+                            </div>
+
+
+                            <span asp-validation-for="SelectedAddressId"
+                                  class="text-danger">
+                            </span>
+
+                        }
+                        else
+                        {
+
+                            <div class="text-center py-4">
+
+                                <i class="bi bi-geo-alt text-muted"
+                                   style="font-size:3rem;"></i>
+
+                                <h5 class="fw-bold mt-3">
+                                    No Delivery Address
+                                </h5>
+
+                                <p class="text-muted">
+                                    Please add a delivery address before
+                                    placing your order.
+                                </p>
+
+                                <a asp-controller="Address"
+                                       asp-action="Create"
+                                       class="btn btn-primary">
+
+                                    <i class="bi bi-plus-lg me-1"></i>
+
+                                    Add Delivery Address
+
+                                </a>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     PAYMENT METHOD
+                     ===================================== -->
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-header bg-white border-0 p-4">
+
+                        <h5 class="fw-bold mb-1">
+
+                            <i class="bi bi-wallet2
+                            text-primary me-2"></i>
+
+                            Payment Method
+
+                        </h5>
+
+                        <small class="text-muted">
+                            Select your preferred payment method
+                        </small>
+
+                    </div>
+
+
+                    <div class="card-body p-4">
+
+
+                        <!-- COD -->
+
+                        <label class="w-100 mb-3">
+
+                            <input type="radio"
+                                   asp-for="PaymentMethod"
+                                   value="COD"
+                                   class="btn-check"
+                                   autocomplete="off" />
+
+                            <div class="payment-option
+                                border
+                                rounded-4
+                                p-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="payment-icon
+                                        bg-success
+                                        bg-opacity-10
+                                        text-success
+                                        rounded-circle
+                                        me-3">
+
+                                        <i class="bi bi-cash-stack"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-bold">
+                                            Cash on Delivery
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Pay when your order is delivered.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </label>
+
+
+                        <!-- Online -->
+
+                        <label class="w-100">
+
+                            <input type="radio"
+                                   asp-for="PaymentMethod"
+                                   value="ONLINE"
+                                   class="btn-check"
+                                   autocomplete="off" />
+
+                            <div class="payment-option
+                                border
+                                rounded-4
+                                p-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="payment-icon
+                                        bg-primary
+                                        bg-opacity-10
+                                        text-primary
+                                        rounded-circle
+                                        me-3">
+
+                                        <i class="bi bi-credit-card"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-bold">
+                                            Online Payment
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Pay securely using online payment.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Back -->
+
+                <a asp-controller="Cart"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary">
+
+                    <i class="bi bi-arrow-left me-2"></i>
+
+                    Back to Cart
+
+                </a>
+
+            </div>
+
+
+            <!-- =========================================
+                 RIGHT
+                 ========================================= -->
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4 sticky-top"
+                     style="top:100px;">
+
+                    <div class="card-header
+                        bg-primary
+                        text-white
+                        p-4
+                        rounded-top-4">
+
+                        <h5 class="mb-0 fw-bold">
+
+                            <i class="bi bi-receipt me-2"></i>
+
+                            Order Summary
+
+                        </h5>
+
+                    </div>
+
+
+                    <div class="card-body p-4">
+
+
+                        <!-- Cart Items -->
+                        @foreach (var item in Model.CartItems)
+                        {
+
+                            var itemTotal =
+                                item.Price * item.Quantity;
+
+                            <div class="d-flex
+                                justify-content-between
+                                mb-3">
+
+                                <div class="pe-3">
+
+                                    <div class="fw-semibold">
+
+                                        @item.ProductName
+
+                                    </div>
+
+                                    <small class="text-muted">
+
+                                        Qty: @item.Quantity
+
+                                    </small>
+
+                                </div>
+
+                                <strong class="text-nowrap">
+
+                                    ₹@itemTotal.ToString("N2")
+
+                                </strong>
+
+                            </div>
+
+                        }
+
+
+                        <hr />
+
+
+                        <!-- Subtotal -->
+
+                        <div class="d-flex
+                            justify-content-between
+                            mb-2">
+
+                            <span>
+                                Subtotal
+                            </span>
+
+                            <strong>
+                                ₹@Model.Subtotal.ToString("N2")
+                            </strong>
+
+                        </div>
+
+
+                        <!-- Shipping -->
+
+                        <div class="d-flex
+                            justify-content-between
+                            mb-2">
+
+                            <span>
+                                Shipping
+                            </span>
+
+                            <span class="text-success fw-semibold">
+                                FREE
+                            </span>
+
+                        </div>
+
+
+                        <!-- Discount -->
+
+                        <div class="d-flex
+                            justify-content-between
+                            mb-3">
+
+                            <span>
+                                Discount
+                            </span>
+
+                            <span>
+                                ₹@Model.Discount.ToString("N2")
+                            </span>
+
+                        </div>
+
+
+                        <hr />
+
+
+                        <!-- Grand Total -->
+
+                        <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            mb-4">
+
+                            <span class="fw-bold">
+                                Grand Total
+                            </span>
+
+                            <span class="fs-4
+                                fw-bold
+                                text-primary">
+
+                                ₹@Model.GrandTotal.ToString("N2")
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- Place Order -->
+                        @if (Model.Addresses != null &&
+                                                     Model.Addresses.Any())
+                        {
+
+                            <button type="submit"
+                                    class="btn btn-success
+                                btn-lg
+                                w-100">
+
+                                <i class="bi bi-check-circle me-2"></i>
+
+                                Place Order
+
+                            </button>
+
+                        }
+                        else
+                        {
+
+                            <button type="button"
+                                    class="btn btn-secondary
+                                btn-lg
+                                w-100"
+                                    disabled>
+
+                                <i class="bi bi-geo-alt me-2"></i>
+
+                                Add Address First
+
+                            </button>
+
+                        }
+
+
+                        <div class="text-center mt-3">
+
+                            <small class="text-muted">
+
+                                <i class="bi bi-shield-check me-1"></i>
+
+                                Secure Checkout
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<style>
+
+    .address-card,
+    .payment-option {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .address-card:hover,
+        .payment-option:hover {
+            border-color: var(--bs-primary) !important;
+            box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.08);
+        }
+
+    .btn-check:checked + .address-card,
+    .btn-check:checked + .payment-option {
+        border-color: var(--bs-primary) !important;
+        background-color: rgba(13,110,253,.05);
+        box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.08);
+    }
+
+    .address-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .payment-icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+</style>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

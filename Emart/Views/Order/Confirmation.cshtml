@@ -1,0 +1,183 @@
+﻿@model EMart.ViewModels.OrderConfirmationVM
+
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body text-center p-5">
+
+                    <div class="mb-4">
+
+                        <i class="bi bi-check-circle-fill text-success"
+                           style="font-size:5rem;"></i>
+
+                    </div>
+
+
+                    <h2 class="fw-bold mb-2">
+                        Order Placed Successfully!
+                    </h2>
+
+
+                    <p class="text-muted mb-4">
+                        Thank you for shopping with EMart.
+                    </p>
+
+
+                    <div class="bg-light rounded-4 p-4 mb-4">
+
+                        <div class="row g-3 text-start">
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Order Number
+                                </small>
+
+                                <div class="fw-bold">
+                                    @Model.Order.OrderNumber
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Order Date
+                                </small>
+
+                                <div class="fw-bold">
+                                    @Model.Order.OrderDate.ToString("dd MMM yyyy hh:mm tt")
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Payment Method
+                                </small>
+
+                                <div class="fw-bold">
+                                    @Model.Order.PaymentMethod
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Order Status
+                                </small>
+
+                                <div>
+                                    <span class="badge bg-warning text-dark">
+                                        @Model.Order.OrderStatus
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    @if (Model.Address != null)
+                    {
+                        <div class="text-start border rounded-4 p-4 mb-4">
+
+                            <h5 class="fw-bold mb-3">
+
+                                <i class="bi bi-geo-alt text-primary me-2"></i>
+
+                                Delivery Address
+
+                            </h5>
+
+
+                            <div>
+                                @Model.Address.AddressLine1
+                            </div>
+
+                            <div>
+                                @Model.Address.City,
+                                @Model.Address.State
+                            </div>
+
+                            <div>
+                                @Model.Address.Pincode
+                            </div>
+
+                        </div>
+                    }
+
+
+                    <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        border-top
+                        pt-4
+                        mb-4">
+
+                        <span class="fw-bold">
+                            Grand Total
+                        </span>
+
+                        <span class="fs-3 fw-bold text-primary">
+
+                            ₹@Model.Order.GrandTotal.ToString("N2")
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="d-flex
+                        justify-content-center
+                        gap-2">
+
+                        <a asp-controller="Order"
+                               asp-action="Details"
+                               asp-route-id="@Model.Order.OrderId"
+                               class="btn btn-primary">
+
+                            <i class="bi bi-eye me-1"></i>
+
+                            View Order
+
+                        </a>
+
+
+                        <a asp-controller="Home"
+                               asp-action="Index"
+                               class="btn btn-outline-secondary">
+
+                            <i class="bi bi-house me-1"></i>
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

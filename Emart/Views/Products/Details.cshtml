@@ -1,0 +1,638 @@
+﻿@model EMart.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Product Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+
+    <style>
+
+        .product-card {
+            transition: .3s;
+            border-radius: 12px;
+        }
+
+            .product-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 15px 35px rgba(0,0,0,.15) !important;
+            }
+
+        .thumbImage {
+            transition: .3s;
+        }
+
+            .thumbImage:hover {
+                transform: scale(1.08);
+                border: 2px solid #0d6efd;
+            }
+
+        #mainImage {
+            transition: .3s;
+        }
+
+        .table th {
+            width: 30%;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            border-radius: 8px;
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 25px;
+        }
+
+    </style>
+
+}
+
+<div class="container py-4">
+
+    <!-- ================= Breadcrumb ================= -->
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb bg-white shadow-sm rounded p-3">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="#">@Model.Product.CategoryName</a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="#">@Model.Product.SubCategoryName</a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                @Model.Product.ProductName
+            </li>
+        </ol>
+    </nav>
+
+
+    <!-- ================= Product ================= -->
+
+    <div class="card border-0 shadow">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- ========================================= -->
+                <!-- Left Side : Images -->
+                <!-- ========================================= -->
+
+                <div class="col-lg-5">
+
+                    <!-- Main Image -->
+                    @{
+                        var firstImage = Model.ProductImages.FirstOrDefault()?.ImagePath
+                                         ?? "/images/no-image.png";
+                    }
+
+                    <div class="text-center mb-3">
+
+                        <img id="mainImage"
+                             src="@firstImage"
+                             class="img-fluid rounded border p-2"
+                             style="height:450px;object-fit:contain;width:100%;" />
+
+                    </div>
+
+                    <!-- Thumbnail Images -->
+                    @if (Model.ProductImages != null &&
+                                        Model.ProductImages.Any())
+                    {
+                        <div class="row g-2">
+
+                            @foreach (var image in Model.ProductImages)
+                            {
+                                <div class="col-3">
+
+                                    <img src="@image.ImagePath"
+                                         class="img-thumbnail thumbImage"
+                                         style="height:90px;width:100%;object-fit:cover;cursor:pointer;" />
+
+                                </div>
+                            }
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center">
+
+                            <img src="/images/no-image.png"
+                                 class="img-thumbnail"
+                                 style="height:90px;" />
+
+                        </div>
+                    }
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- Right Side -->
+                <!-- Product Information -->
+                <!-- ========================================= -->
+
+
+                <div class="col-lg-7">
+
+                    <!-- Product Name -->
+
+                    <h2 class="fw-bold mb-2">
+                        @Model.Product.ProductName
+                    </h2>
+
+                    <div class="mb-3">
+
+                        <span class="badge bg-success fs-6">
+                            In Stock
+                        </span>
+
+                        <span class="ms-2 text-muted">
+                            SKU :
+                            <strong>@Model.Product.SKU</strong>
+                        </span>
+
+                    </div>
+
+                    <hr />
+
+                    <!-- Brand -->
+
+                    <div class="row mb-2">
+
+                        <div class="col-4 fw-bold">
+                            Brand
+                        </div>
+
+                        <div class="col-8">
+                            @Model.Product.BrandName
+                        </div>
+
+                    </div>
+
+                    <!-- Category -->
+
+                    <div class="row mb-2">
+
+                        <div class="col-4 fw-bold">
+                            Category
+                        </div>
+
+                        <div class="col-8">
+                            @Model.Product.CategoryName
+                        </div>
+
+                    </div>
+
+                    <!-- Sub Category -->
+
+                    <div class="row mb-2">
+
+                        <div class="col-4 fw-bold">
+                            Sub Category
+                        </div>
+
+                        <div class="col-8">
+                            @Model.Product.SubCategoryName
+                        </div>
+
+                    </div>
+
+                    <!-- Quantity -->
+
+                    <div class="row mb-4">
+
+                        <div class="col-4 fw-bold">
+                            Available Quantity
+                        </div>
+
+                        <div class="col-8">
+
+                            @if (Model.Product.Quantity > 0)
+                            {
+                                <span class="text-success fw-bold">
+                                    @Model.Product.Quantity Items Available
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger fw-bold">
+                                    Out Of Stock
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <!-- Price -->
+
+                    <h2 class="text-danger fw-bold mb-4">
+
+                        ₹@(Model.Product.Price?.ToString("N2") ?? "0.00")
+
+                    </h2>
+
+                    <!-- Buy Quantity -->
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-bold">
+                                Quantity
+                            </label>
+
+                            <input type="number"
+                                   id="qty"
+                                   value="1"
+                                   min="1"
+                                   max="@Model.Product.Quantity"
+                                   class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+
+                    <div class="d-flex gap-2 mb-4">
+
+                        <form asp-controller="Cart"
+                              asp-action="AddToCart"
+                              method="post">
+
+                            <input type="hidden"
+                                   name="productId"
+                                   value="@Model.Product.ProductId" />
+
+                            <input type="hidden"
+                                   name="quantity"
+                                   id="cartQty"
+                                   value="1" />
+
+                            <button class="btn btn-primary btn-lg">
+
+                                <i class="bi bi-cart-plus"></i>
+
+                                Add To Cart
+
+                            </button>
+
+                        </form>
+
+                        <button class="btn btn-success btn-lg">
+
+                            Buy Now
+
+                        </button>
+
+                        <button class="btn btn-outline-danger btn-lg">
+
+                            Wishlist
+
+                        </button>
+
+                    </div>
+
+                    <hr />
+
+                    <!-- Product Description -->
+
+                    <h4 class="fw-bold mb-3">
+
+                        Product Description
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        @Html.Raw(Model.Product.Description)
+
+                    </p>
+
+                    <hr />
+
+                    <!-- Product Specifications -->
+
+                    <h4 class="fw-bold mb-3">
+
+                        Specifications
+
+                    </h4>
+
+                    <table class="table table-bordered">
+
+                        <tbody>
+
+                            <tr>
+
+                                <th width="30%">
+                                    Product Name
+                                </th>
+
+                                <td>
+                                    @Model.Product.ProductName
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    SKU
+                                </th>
+
+                                <td>
+                                    @Model.Product.SKU
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    Brand
+                                </th>
+
+                                <td>
+                                    @Model.Product.BrandName
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <td>
+                                    @Model.Product.CategoryName
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    Sub Category
+                                </th>
+
+                                <td>
+                                    @Model.Product.SubCategoryName
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <td>
+
+                                    ₹@(Model.Product.Price?.ToString("N2") ?? "0.00")
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <td>
+
+                                    @Model.Product.Quantity
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="mt-4">
+
+                        <a asp-controller="Home"
+                               asp-action="Index"
+                               class="btn btn-secondary">
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                </div>
+                <hr class="my-5" />
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        <h3 class="fw-bold mb-4">
+                            Related Products
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+                    {
+                        @foreach (var item in Model.RelatedProducts)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                                <div class="card h-100 border-0 shadow-sm product-card">
+
+                                    <img src="@(string.IsNullOrEmpty(item.ThumbnailImage)
+                                                                                                                                              ? "/images/no-image.png"
+                                                                                                                                              : item.ThumbnailImage)"
+                                         class="card-img-top p-3"
+                                         style="height:220px;object-fit:contain;" />
+
+                                    <div class="card-body">
+
+                                        <h6 class="fw-bold text-truncate">
+                                            @item.ProductName
+                                        </h6>
+
+                                        <small class="text-muted">
+                                            @item.BrandName
+                                        </small>
+
+                                        <h5 class="text-danger mt-2">
+                                            ₹@(item.Price?.ToString("N2") ?? "0.00")
+                                        </h5>
+
+                                    </div>
+
+                                    <div class="card-footer bg-white border-0">
+
+                                        <a asp-controller="Products"
+                                               asp-action="Details"
+                                               asp-route-id="@item.ProductId"
+                                               class="btn btn-primary w-100">
+
+                                            View Details
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+
+                            <div class="alert alert-info">
+
+                                No related products available.
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        const thumbs = document.querySelectorAll(".thumbImage");
+
+        thumbs.forEach(function(img){
+
+            img.addEventListener("click",function(){
+
+                document.getElementById("mainImage").src=this.src;
+
+                thumbs.forEach(x=>x.classList.remove("border-primary"));
+
+                this.classList.add("border-primary");
+
+            });
+
+        });
+
+    </script>
+
+    <script>
+        document.getElementById("qty").addEventListener("change", function () {
+            document.getElementById("cartQty").value = this.value;
+        });
+    </script>
+
+    @* <script>
+
+        $("#cartForm").submit(function(e){
+
+            e.preventDefault();
+
+            $.ajax({
+
+                url:'/Cart/AddToCart',
+
+                type:'POST',
+
+                data:$(this).serialize(),
+
+                success:function(response){
+
+                    if(response.success){
+
+                        $("#cartCount").text(response.cartCount);
+
+                        $("#miniCartContainer").load("/Cart/MiniCart");
+
+                        toastr.success(response.message);
+
+                    }
+
+                }
+
+            });
+
+        });
+
+    </script> *@
+
+    <script>
+        $("#cartForm").submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+
+                url: "/Cart/AddToCart",
+
+                type: "POST",
+
+                data: $(this).serialize(),
+
+                success: function (response) {
+
+                    if (response.success) {
+
+                        $("#cartCount").text(response.cartCount);
+
+                        alert(response.message);
+
+                    } else {
+
+                        alert(response.message);
+
+                    }
+
+                },
+
+                error: function () {
+
+                    alert("Something went wrong.");
+
+                }
+
+            });
+
+        });
+    </script>
+}
+

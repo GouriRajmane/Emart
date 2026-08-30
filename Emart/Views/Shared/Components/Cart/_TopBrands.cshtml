@@ -1,0 +1,127 @@
+﻿@model IEnumerable<EMart.Models.Brands>
+
+<section class="py-5">
+
+    <div class="container">
+
+        <!-- Section Heading -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2 class="fw-bold mb-1">
+                    Top Brands
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Shop from your favorite brands
+                </p>
+
+            </div>
+
+            <a asp-controller="Products"
+                   asp-action="Index"
+                   class="btn btn-outline-primary">
+                View All
+            </a>
+
+        </div>
+
+        <div class="row g-4">
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var brand in Model)
+                {
+                    <div class="col-6 col-md-4 col-lg-2">
+
+                        <a asp-controller="Products"
+                               asp-action="Brand"
+                               asp-route-id="@brand.BrandId"
+                               class="text-decoration-none">
+
+                            <div class="card border-0 shadow-sm h-100 brand-card">
+
+                                <div class="card-body text-center">
+
+                                    @if (!string.IsNullOrEmpty(brand.LogoPath))
+                                    {
+                                        <img src="@brand.LogoPath"
+                                             class="img-fluid mb-3"
+                                             style="height:70px;object-fit:contain;"
+                                             alt="@brand.BrandName" />
+                                    }
+                                    else
+                                    {
+                                        <div class="brand-placeholder mb-3">
+
+                                            <i class="bi bi-award-fill fs-1 text-primary"></i>
+
+                                        </div>
+                                    }
+
+                                    <h6 class="fw-semibold text-dark mb-0">
+                                        @brand.BrandName
+                                    </h6>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+
+                    <div class="alert alert-info text-center">
+
+                        No brands available.
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+    .brand-card {
+        border-radius: 15px;
+        transition: .3s;
+    }
+
+        .brand-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.15) !important;
+        }
+
+    .brand-placeholder {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        border-radius: 50%;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: .3s;
+    }
+
+    .brand-card:hover .brand-placeholder {
+        background: #0d6efd;
+    }
+
+        .brand-card:hover .brand-placeholder i {
+            color: #fff !important;
+        }
+
+</style>

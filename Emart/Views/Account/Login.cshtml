@@ -1,0 +1,126 @@
+﻿@model EMart.ViewModels.LoginVM
+
+@{
+    ViewData["Title"] = "Customer Login";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="mb-3">
+                            <i class="bi bi-person-circle text-primary"
+                               style="font-size: 3rem;"></i>
+                        </div>
+
+                        <h3 class="fw-bold">
+                            Welcome Back
+                        </h3>
+
+                        <p class="text-muted mb-0">
+                            Login to continue shopping
+                        </p>
+
+                    </div>
+
+
+                    <form asp-action="Login"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="returnUrl"
+                               value="@ViewBag.ReturnUrl" />
+
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="Email" />
+
+                            <label asp-for="Email">
+                                Email Address
+                            </label>
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="Password" />
+
+                            <label asp-for="Password">
+                                Password
+                            </label>
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 py-2">
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="text-center mt-4">
+
+                        <span class="text-muted">
+                            Don't have an account?
+                        </span>
+
+                        <a asp-controller="Account"
+                               asp-action="Register"
+                               class="fw-semibold text-decoration-none">
+
+                            Create Account
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

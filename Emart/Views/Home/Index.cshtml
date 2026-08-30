@@ -1,8 +1,169 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model EMart.ViewModels.HomeVM
+
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<partial name="_HeroBanner" />
+
+<partial name="_Categories"
+         model="Model.Categories" />
+         
+<partial name="_Products"
+         model="Model.AllProducts" />
+
+<partial name="_LatestProducts"
+         model="Model.LatestProducts" />
+
+<partial name="_FeaturedProducts"
+         model="Model.FeaturedProducts" />
+
+<partial name="_TopBrands"
+         model="Model.Brands" />
+
+@* <partial name="_WhyChooseUs" />
+
+<partial name="_Newsletter" /> *@
+
+<!-- Hero Section -->
+<div class="bg-light py-5 mb-5 border-bottom">
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <h1 class="display-4 fw-bold text-primary">
+                    Welcome to EMart
+                </h1>
+
+                <p class="lead text-muted mt-3">
+                    Your one-stop destination for Electronics, Fashion,
+                    Grocery, Furniture, and much more.
+                </p>
+
+                <div class="mt-4">
+
+                    <a href="#" class="btn btn-primary btn-lg me-2">
+                        <i class="bi bi-bag-fill"></i>
+                        Shop Now
+                    </a>
+
+                    <a href="#" class="btn btn-outline-secondary btn-lg">
+                        Learn More
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="~/images/banners/hero-banner.png"
+                     asp-append-version="true"
+                     class="img-fluid rounded shadow"
+                     alt="EMart Shopping" />
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Categories -->
+<div class="container mb-5">
+
+    <h2 class="text-center fw-bold mb-4">
+        Shop by Category
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-phone fs-1 text-primary"></i>
+                    <h5 class="mt-3">Mobiles</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-laptop fs-1 text-success"></i>
+                    <h5 class="mt-3">Laptops</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-watch fs-1 text-warning"></i>
+                    <h5 class="mt-3">Accessories</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-house-door fs-1 text-danger"></i>
+                    <h5 class="mt-3">Home</h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Features -->
+<div class="container mb-5">
+
+    <div class="row text-center">
+
+        <div class="col-md-3">
+
+            <i class="bi bi-truck fs-1 text-primary"></i>
+
+            <h5 class="mt-3">
+                Free Delivery
+            </h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <i class="bi bi-arrow-repeat fs-1 text-success"></i>
+
+            <h5 class="mt-3">
+                Easy Returns
+            </h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <i class="bi bi-credit-card fs-1 text-warning"></i>
+
+            <h5 class="mt-3">
+                Secure Payment
+            </h5>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <i class="bi bi-headset fs-1 text-danger"></i>
+
+            <h5 class="mt-3">
+                24x7 Support
+            </h5>
+
+        </div>
+
+    </div>
+
 </div>

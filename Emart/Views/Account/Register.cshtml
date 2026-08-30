@@ -1,0 +1,158 @@
+﻿@model EMart.ViewModels.RegisterVM
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7 col-lg-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="mb-3">
+
+                            <i class="bi bi-person-plus-fill text-primary"
+                               style="font-size: 3rem;"></i>
+
+                        </div>
+
+                        <h3 class="fw-bold">
+                            Create Your Account
+                        </h3>
+
+                        <p class="text-muted">
+                            Join EMart and start shopping
+                        </p>
+
+                    </div>
+
+
+                    <form asp-action="Register"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+
+                            <input asp-for="FullName"
+                                   class="form-control"
+                                   placeholder="Full Name" />
+
+                            <label asp-for="FullName">
+                                Full Name
+                            </label>
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="Email" />
+
+                            <label asp-for="Email">
+                                Email Address
+                            </label>
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="Password" />
+
+                            <label asp-for="Password">
+                                Password
+                            </label>
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-floating mb-4">
+
+                            <input asp-for="ConfirmPassword"
+                                   class="form-control"
+                                   placeholder="Confirm Password" />
+
+                            <label asp-for="ConfirmPassword">
+                                Confirm Password
+                            </label>
+
+                            <span asp-validation-for="ConfirmPassword"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 py-2">
+
+                            <i class="bi bi-person-plus me-2"></i>
+
+                            Create Account
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="text-center mt-4">
+
+                        <span class="text-muted">
+                            Already have an account?
+                        </span>
+
+                        <a asp-controller="Account"
+                               asp-action="Login"
+                               class="fw-semibold text-decoration-none">
+
+                            Login
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

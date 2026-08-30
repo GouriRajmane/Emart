@@ -1,0 +1,88 @@
+﻿@model EMart.ViewModels.MiniCartVM
+
+<div class="dropdown">
+
+    <a class="nav-link position-relative"
+           href="#"
+           data-bs-toggle="dropdown">
+
+        <i class="bi bi-cart3 fs-4"></i>
+
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+            @Model.CartCount
+
+        </span>
+
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-end shadow p-3"
+         style="width:350px;">
+
+        <h6 class="fw-bold">
+            Shopping Cart
+        </h6>
+
+        @foreach (var item in Model.Items)
+        {
+            <div class="d-flex mb-2">
+
+                <img src="@item.ThumbnailImage"
+                     width="60"
+                     height="60"
+                     class="rounded border" />
+
+                <div class="ms-2">
+
+                    <div class="fw-semibold">
+
+                        @item.ProductName
+
+                    </div>
+
+                    <small>
+
+                        Qty : @item.Quantity
+
+                    </small>
+
+                    <div class="text-primary">
+
+                        ₹@item.Price
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+        <hr />
+
+        <div class="d-flex justify-content-between">
+
+            <strong>Total</strong>
+
+            <strong>
+
+                ₹@Model.GrandTotal
+
+            </strong>
+
+        </div>
+
+        <div class="d-grid mt-3">
+
+            <a asp-controller="Cart"
+                   asp-action="Index"
+                   class="btn btn-primary">
+
+                View Cart
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

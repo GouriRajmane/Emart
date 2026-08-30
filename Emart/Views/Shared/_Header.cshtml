@@ -1,0 +1,321 @@
+﻿<header>
+
+    <!-- Top Header -->
+    <div class="bg-primary text-white py-2">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6 text-center text-md-start">
+
+                    <small>
+                        <i class="bi bi-truck"></i>
+                        Free Shipping on Orders Above ₹999
+                    </small>
+
+                </div>
+
+                <div class="col-md-6 text-center text-md-end">
+
+                    <small>
+
+                        <i class="bi bi-telephone"></i>
+
+                        +91 9876543210
+
+                        &nbsp;&nbsp;
+
+                        <i class="bi bi-envelope"></i>
+
+                        support@emart.com
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Main Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+
+        <div class="container">
+
+            <!-- Logo -->
+
+            <a class="navbar-brand fw-bold fs-3 text-primary"
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                <i class="bi bi-bag-fill"></i>
+
+                EMart
+
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="navbarMenu">
+
+                <!-- Search -->
+
+                <form class="d-flex mx-auto w-50">
+
+                    <input class="form-control me-2"
+                           type="search"
+                           placeholder="Search products..." />
+
+                    <button class="btn btn-primary">
+
+                        <i class="bi bi-search"></i>
+
+                    </button>
+
+                </form>
+
+                <!-- Menu -->
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown">
+
+                            Categories
+
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Electronics
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Fashion
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Grocery
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Mobiles
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#">
+
+                            Products
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#">
+
+                            Brands
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link text-danger fw-semibold"
+                               href="#">
+
+                            Today's Deals
+
+                        </a>
+
+                    </li>
+
+                    <!-- Wishlist -->
+
+                    <li class="nav-item ms-lg-3">
+
+                        <a class="nav-link position-relative"
+                               href="#">
+
+                            <i class="bi bi-heart fs-5"></i>
+
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                                0
+
+                            </span>
+
+                        </a>
+
+                    </li>
+
+                    <!-- Cart -->
+
+                    <li class="nav-item ms-lg-3">
+
+                        @await Component.InvokeAsync("Cart")
+
+                    </li>
+
+                    <!-- Login -->
+                    <!-- Customer Account -->
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item dropdown ms-lg-2">
+
+                            <a class="nav-link dropdown-toggle d-flex align-items-center"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                <i class="bi bi-person-circle fs-5 me-1"></i>
+
+                                <span>
+                                    @User.Identity.Name
+                                </span>
+
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+
+                                <li>
+                                    <a class="dropdown-item"
+                                           asp-controller="Account"
+                                           asp-action="Profile">
+
+                                        <i class="bi bi-person me-2"></i>
+                                        My Profile
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item"
+                                           asp-controller="Orders"
+                                           asp-action="Index">
+
+                                        <i class="bi bi-box-seam me-2"></i>
+                                        My Orders
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item"
+                                           asp-controller="Address"
+                                           asp-action="Index">
+
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                        My Addresses
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+
+                                <li>
+
+                                    <form asp-controller="Account"
+                                          asp-action="Logout"
+                                          method="post"
+                                          class="px-2">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="submit"
+                                                class="dropdown-item text-danger">
+
+                                            <i class="bi bi-box-arrow-right me-2"></i>
+                                            Logout
+
+                                        </button>
+
+                                    </form>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item ms-lg-2">
+
+                            <a asp-controller="Account"
+                                   asp-action="Login"
+                                   class="btn btn-outline-primary btn-sm me-2">
+
+                                <i class="bi bi-box-arrow-in-right me-1"></i>
+                                Login
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a asp-controller="Account"
+                                   asp-action="Register"
+                                   class="btn btn-primary btn-sm">
+
+                                <i class="bi bi-person-plus-fill me-1"></i>
+                                Register
+
+                            </a>
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
