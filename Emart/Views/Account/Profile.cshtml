@@ -1,0 +1,131 @@
+﻿@model EMart.ViewModels.CustomerAccountVM
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-primary text-white py-3">
+
+                    <div class="d-flex align-items-center">
+
+                        <i class="bi bi-person-circle fs-3 me-3"></i>
+
+                        <div>
+                            <h4 class="mb-0">My Profile</h4>
+                            <small>Manage your account information</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label text-muted">
+                                Full Name
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.FullName
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label text-muted">
+                                Email
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.Email
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label text-muted">
+                                Customer ID
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.CustomerId
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label text-muted">
+                                Account Status
+                            </label>
+
+                            <div class="form-control bg-light">
+
+                                @if (Model.IsActive)
+                                {
+                                    <span class="text-success fw-semibold">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Active
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger fw-semibold">
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Inactive
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <a asp-controller="Address"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+
+                            <i class="bi bi-geo-alt me-1"></i>
+                            My Addresses
+
+                        </a>
+
+                        <a asp-controller="Orders"
+                           asp-action="Index"
+                           class="btn btn-outline-dark">
+
+                            <i class="bi bi-box-seam me-1"></i>
+                            My Orders
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

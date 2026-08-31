@@ -1,0 +1,133 @@
+﻿/* =========================================================
+   EMart ADMIN LAYOUT
+   ========================================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    background-color: #f5f6f8;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* =========================================================
+   ADMIN SIDEBAR
+   ========================================================= */
+
+.admin-sidebar {
+    background-color: #212529;
+    min-height: calc(100vh - 56px);
+    padding: 0;
+}
+
+
+    /* Sidebar menu container */
+
+    .admin-sidebar .list-group {
+        width: 100%;
+        border-radius: 0;
+    }
+
+
+    /* Sidebar menu items */
+
+    .admin-sidebar .list-group-item {
+        background-color: #212529 !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-bottom: 1px solid #343a40 !important;
+        border-radius: 0 !important;
+        padding: 14px 18px;
+        font-size: 15px;
+        transition: background-color 0.2s ease, padding-left 0.2s ease;
+    }
+
+
+        /* Sidebar hover */
+
+        .admin-sidebar .list-group-item:hover {
+            background-color: #343a40 !important;
+            color: #ffffff !important;
+            padding-left: 23px;
+        }
+
+
+        /* Sidebar icons */
+
+        .admin-sidebar .list-group-item i {
+            width: 25px;
+            margin-right: 7px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+   ACTIVE SIDEBAR ITEM
+   ========================================================= */
+
+        .admin-sidebar .list-group-item.active {
+            background-color: #0d6efd !important;
+            color: #ffffff !important;
+        }
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.admin-content {
+    min-height: calc(100vh - 56px);
+    background-color: #f5f6f8;
+    padding: 30px;
+}
+
+
+    /* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+    .admin-content h1 {
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 32px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+
+/* =========================================================
+   ADMIN CARDS
+   ========================================================= */
+
+.admin-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .admin-sidebar {
+        min-height: auto;
+    }
+
+    .admin-content {
+        padding: 20px 15px;
+    }
+
+    .admin-sidebar .list-group-item {
+        padding: 12px 15px;
+    }
+}
