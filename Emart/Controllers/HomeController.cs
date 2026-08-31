@@ -1,4 +1,4 @@
-using EMart.Models;
+using Emart.Models;
 using EMart.Repositories.Interfaces;
 using EMart.ViewModels;
 using Microsoft.AspNetCore.Mvc;

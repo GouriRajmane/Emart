@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EMart.Controllers
 {
-    public class OrderController : Controller
+    public class OrdersController : Controller
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IAddressRepository _addressRepository;
 
-        public OrderController(
+        public OrdersController(
             IOrderRepository orderRepository,
             IAddressRepository addressRepository)
         {

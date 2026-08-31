@@ -1,10 +1,12 @@
 ﻿using EMart.Models;
 using EMart.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMart.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(AuthenticationSchemes = "AdminCookie", Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly IRolesRepository _rolesRepository;

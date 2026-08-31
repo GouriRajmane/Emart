@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace EMart.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = "AdminCookie", Roles = "Admin")]
+
     public class UnitsController : Controller
     {
         private readonly IUnitsRepository _unitsRepository;

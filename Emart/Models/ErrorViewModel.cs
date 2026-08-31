@@ -1,3 +1,4 @@
+
 namespace Emart.Models
 {
     public class ErrorViewModel

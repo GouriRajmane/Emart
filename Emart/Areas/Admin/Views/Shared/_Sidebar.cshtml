@@ -49,21 +49,13 @@
     </a>
 
 
-<a asp-area="Admin"
-       asp-controller="Units"
-       asp-action="Index"
-       class="list-group-item list-group-item-action bg-dark text-white border-0">
-    <i class="bi bi-rulers"></i>
-    Units
-</a>
-
-<a asp-area="Admin"
-       asp-controller="Products"
-       asp-action="Index"
-       class="list-group-item list-group-item-action bg-dark text-white border-0">
-    <i class="bi bi-box-seam"></i>
-    Products
-</a>
+    <a asp-area="Admin"
+           asp-controller="Units"
+           asp-action="Index"
+           class="list-group-item list-group-item-action bg-dark text-white border-0">
+        <i class="bi bi-rulers"></i>
+        Units
+    </a>
 
     <a asp-area="Admin"
            asp-controller="Products"
@@ -73,8 +65,9 @@
         Products
     </a>
 
-
-    <a href="#"
+    <a asp-area="Admin"
+       asp-controller="Order"
+       asp-action="Index"
        class="list-group-item list-group-item-action bg-dark text-white border-0">
         <i class="bi bi-cart-check"></i>
         Orders

@@ -1,6 +1,6 @@
-﻿namespace EMart.Models
+﻿namespace Emart.Models
 {
-    public class Orders
+    public class Order
     {
         public int OrderId { get; set; }
 

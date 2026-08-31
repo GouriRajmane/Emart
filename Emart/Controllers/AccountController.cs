@@ -255,6 +255,38 @@ namespace EMart.Controllers
 
         #endregion
 
+        #region Profile
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null ||
+                !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                await HttpContext.SignOutAsync("CustomerCookie");
+
+                return RedirectToAction(nameof(Login));
+            }
+
+            var account =
+                await _accountRepository.GetCustomerByUserId(userId);
+
+            if (account == null)
+            {
+                return NotFound("Customer profile not found.");
+            }
+
+            return View(account);
+        }
+
+        #endregion
 
         #region Logout
 
