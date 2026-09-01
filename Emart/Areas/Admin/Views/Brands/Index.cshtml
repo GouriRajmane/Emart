@@ -71,15 +71,16 @@
                             Brand ID
                         </th>
 
+                        <!-- Logo -->
+                        <th class="text-center" style="width:120px;">
+                            Logo
+                        </th>
+
                         <!-- Brand Name -->
                         <th>
                             Brand Name
                         </th>
 
-                        <!-- Logo -->
-                        <th class="text-center" style="width:120px;">
-                            Logo
-                        </th>
 
                         <!-- Action -->
                         <th class="text-center" style="width:220px;">
@@ -104,13 +105,6 @@
                                     @item.BrandId
                                 </td>
 
-
-                                <!-- Brand Name -->
-                                <td>
-                                    @item.BrandName
-                                </td>
-
-
                                 <!-- Logo -->
                                 <td class="text-center">
 
@@ -119,8 +113,8 @@
                                         <img src="@item.LogoPath"
                                              alt="@item.BrandName"
                                              style="width:70px;
-                                        height:50px;
-                                        object-fit:contain;" />
+                                                    height:50px;
+                                                    object-fit:contain;" />
                                     }
                                     else
                                     {
@@ -129,6 +123,11 @@
                                         </span>
                                     }
 
+                                </td>
+
+                                <!-- Brand Name -->
+                                <td>
+                                    @item.BrandName
                                 </td>
 
 
